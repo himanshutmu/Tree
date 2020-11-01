@@ -11,16 +11,18 @@
 1. Take clone from the repository using this url:
 		https://github.com/himanshutmu/Tree.git
 2. Go to project folder and run following commands: 
-		git checkout master
-		composer install
-		composer require laravel/ui:^2.4
-		php artisan ui vue
-		npm install
-		npm run dev
+	<p>git checkout master </p>	
+	<p>composer install </p>
+	<p>composer require laravel/ui:^2.4 </p>
+	<p>php artisan ui vue </p>
+	<p>npm install </p>
+	<p>npm run dev </p>
 3. Copy .env.example into .env
-4. Make database connection 
-5. Run below commands:
-	php artisan migrate
-	php artisan db:seed
+4. php artisan key:generate
+5. Make database connection 
+6. Run below commands:
+	<p>php artisan migrate</p>
+	<p>php artisan db:seed</p>
 
-6. Run this command: php artisan serve
+7. Finally run this command: 
+	<p>php artisan serve</p>
