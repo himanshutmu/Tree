@@ -30,6 +30,7 @@
   import { VueTreeList, Tree, TreeNode } from 'vue-tree-list';
   import axios from 'axios';
   export default {
+    name:'TreeComponent',
     components: {
       VueTreeList
     },
