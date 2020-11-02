@@ -11,7 +11,8 @@ class FolderFileController extends Controller
 {
     public function getFoldersAndFiles()
     {
-    	$data = Folder::with('children','files')->whereNull('parent_id')->get();
+        // $data = Folder::with('children','files')->whereNull('parent_id')->get();
+    	$data = Folder::whereNull('parent_id')->get();
     	return Response::json($data,200);
     }
 
