@@ -13,8 +13,6 @@
 2. Go to project folder and run following commands: 
 	<p>git checkout master </p>	
 	<p>composer install </p>
-	<p>composer require laravel/ui:^2.4 </p>
-	<p>php artisan ui vue </p>
 	<p>npm install </p>
 	<p>npm run dev </p>
 3. Copy .env.example into .env
