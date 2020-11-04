@@ -1973,25 +1973,44 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   mounted: function mounted() {
-    var _this = this;
-
-    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/getFoldersAndFiles').then(function (res) {
-      console.log(res.data);
-      _this.data = new vue_tree_list__WEBPACK_IMPORTED_MODULE_0__["Tree"](res.data);
-    });
+    this.getFoldersAndFiles();
   },
   methods: {
+    getFoldersAndFiles: function getFoldersAndFiles() {
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/getFoldersAndFiles').then(function (res) {
+        _this.data = new vue_tree_list__WEBPACK_IMPORTED_MODULE_0__["Tree"](res.data);
+      });
+    },
     onDel: function onDel(node) {
-      console.log(node);
-      node.remove();
+      var isLeaf = node.isLeaf ? true : false;
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/deleteFolderAndFile/' + node.id, {
+        isLeaf: isLeaf
+      }).then(function (res) {
+        node.remove();
+      });
     },
     onChangeName: function onChangeName(params) {
-      console.log(params);
+      var isLeaf = params.isLeaf ? true : false;
+      var requestData = {
+        name: params.newName,
+        isLeaf: isLeaf
+      };
+
+      if (params.eventType == 'blur') {
+        axios__WEBPACK_IMPORTED_MODULE_1___default.a.put('/api/updateFolderAndFile/' + params.id, requestData).then(function (res) {});
+      }
     },
     onAddNode: function onAddNode(params) {
-      console.log(params); // axios.post('/api/addFolderAndFile',params).then(res => {
-      //     console.log(res.data);
-      // })
+      var requestData = {
+        name: params.name,
+        pid: params.pid,
+        isLeaf: params.isLeaf
+      };
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/addFolderAndFile', requestData).then(function (res) {
+        params.id = res.data.id;
+      });
     },
     onClick: function onClick(params) {
       console.log(params);
@@ -2003,6 +2022,12 @@ __webpack_require__.r(__webpack_exports__);
       });
       if (!this.data.children) this.data.children = [];
       this.data.addChildren(node);
+      axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/addFolderAndFile', {
+        name: 'new node',
+        isLeaf: false
+      }).then(function (res) {
+        params.id = res.data.id;
+      });
     }
   }
 });

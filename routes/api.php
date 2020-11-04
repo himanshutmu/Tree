@@ -20,3 +20,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('getFoldersAndFiles','FolderFileController@getFoldersAndFiles');
 Route::post('addFolderAndFile','FolderFileController@addFolderAndFile');
+Route::post('/deleteFolderAndFile/{id}','FolderFileController@deleteFolderAndFile');
+Route::put('updateFolderAndFile/{id}','FolderFileController@updateFolderAndFile');

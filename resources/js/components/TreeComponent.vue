@@ -66,36 +66,47 @@
       }
     },
     mounted(){
-        axios.get('/api/getFoldersAndFiles').then(res => {
-            console.log(res.data);
-            this.data = new Tree(res.data);
-        })
+      this.getFoldersAndFiles();
     },
     methods: {
+      getFoldersAndFiles(){
+        axios.get('/api/getFoldersAndFiles').then(res => {
+          this.data = new Tree(res.data);
+        });
+      },
       onDel(node) {
-        console.log(node)
-        node.remove()
+        var isLeaf = node.isLeaf ? true : false;
+        axios.post('/api/deleteFolderAndFile/'+ node.id,{isLeaf:isLeaf}).then(res => {
+            node.remove();
+        });
       },
  
       onChangeName(params) {
-        console.log(params)
-      },
- 
+        var isLeaf = params.isLeaf ? true : false;
+        var requestData = {name:params.newName,isLeaf:isLeaf}
+        if(params.eventType == 'blur')
+        {
+          axios.put('/api/updateFolderAndFile/'+ params.id,requestData).then(res => {
+
+          });
+        }
+      }, 
       onAddNode(params) {
-        console.log(params);
-        // axios.post('/api/addFolderAndFile',params).then(res => {
-        //     console.log(res.data);
-        // })
-      },
- 
+        var requestData = {name: params.name,pid:params.pid,isLeaf:params.isLeaf}
+        axios.post('/api/addFolderAndFile',requestData).then(res => {
+            params.id = res.data.id;
+        });
+      }, 
       onClick(params) {
         console.log(params)
-      },
- 
+      }, 
       addNode() {
         var node = new TreeNode({ name: 'new node', isLeaf: false })
         if (!this.data.children) this.data.children = []
         this.data.addChildren(node)
+        axios.post('/api/addFolderAndFile',{ name: 'new node', isLeaf: false }).then(res => {
+          params.id = res.data.id;
+        });
       }
     }
   }
