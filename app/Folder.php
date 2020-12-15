@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Folder extends Model
 {
-    protected $fillable = ['name'];
+    protected $fillable = ['name','parent_id'];
 
     protected $hidden = ['created_at','updated_at','files','folders'];
 

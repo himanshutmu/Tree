@@ -18,7 +18,9 @@ class FolderFileController extends Controller
 
     public function addFolderAndFile(Request $request)
     {
-    	if($request->isLeaf)
+        // dd($request->isLeaf);
+        // echo json_encode($request->isLeaf);die;
+    	if($request->isLeaf === true)
     		$createRecord = File::create(['name'=> $request->get('name'),'folder_id' => $request->get('pid')]);
     	else	
     		$createRecord = Folder::create(['name'=> $request->get('name'),'parent_id' => $request->get('pid')]);

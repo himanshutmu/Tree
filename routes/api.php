@@ -22,3 +22,4 @@ Route::get('getFoldersAndFiles','FolderFileController@getFoldersAndFiles');
 Route::post('addFolderAndFile','FolderFileController@addFolderAndFile');
 Route::post('/deleteFolderAndFile/{id}','FolderFileController@deleteFolderAndFile');
 Route::put('updateFolderAndFile/{id}','FolderFileController@updateFolderAndFile');
+Route::post('resizeImagePost', 'ImageController@resizeImagePost')->name('resizeImagePost');
